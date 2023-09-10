@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:movie_app/core/utils/shared_pref.dart';
 import 'package:movie_app/features/auth/data/datasource/auth_datasource.dart';
 import 'package:movie_app/features/auth/data/datasource/remote/remote_datasource_impl.dart';
 import 'package:movie_app/features/auth/data/repositories/auth_repositoy_impl.dart';

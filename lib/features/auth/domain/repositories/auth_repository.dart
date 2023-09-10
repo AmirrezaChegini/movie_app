@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:movie_app/core/params/login_param.dart';
 import 'package:movie_app/core/params/register_param.dart';
-import 'package:movie_app/features/auth/ui/login_page.dart';
 
 abstract class AuthRepository {
   Future<Either<String, String>> login({required LoginParam param});
