@@ -1,13 +1,9 @@
 import 'package:dartz/dartz.dart';
+import 'package:movie_app/core/params/login_param.dart';
+import 'package:movie_app/core/params/register_param.dart';
+import 'package:movie_app/features/auth/ui/login_page.dart';
 
 abstract class AuthRepository {
-  Future<Either<String, String>> login({
-    required String email,
-    required String password,
-  });
-  Future<Either<String, String>> register({
-    required String name,
-    required Stream email,
-    required String password,
-  });
+  Future<Either<String, String>> login({required LoginParam param});
+  Future<Either<String, String>> register({required RegisterParam param});
 }

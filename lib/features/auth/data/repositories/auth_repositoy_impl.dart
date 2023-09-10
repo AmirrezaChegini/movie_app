@@ -1,5 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:movie_app/core/params/login_param.dart';
+import 'package:movie_app/core/params/register_param.dart';
 import 'package:movie_app/core/utils/error_handler/app_exceptions.dart';
 import 'package:movie_app/core/utils/shared_pref.dart';
 import 'package:movie_app/features/auth/data/datasource/auth_datasource.dart';
@@ -11,11 +13,9 @@ class AuthRepositoryImple extends AuthRepository {
   AuthRepositoryImple(this._dataSource);
 
   @override
-  Future<Either<String, String>> login(
-      {required String email, required String password}) async {
+  Future<Either<String, String>> login({required LoginParam param}) async {
     try {
-      Response response =
-          await _dataSource.login(email: email, password: password);
+      Response response = await _dataSource.login(param: param);
 
       //get token from response
       String token = response.data['access_token'];
@@ -33,11 +33,9 @@ class AuthRepositoryImple extends AuthRepository {
 
   @override
   Future<Either<String, String>> register(
-      {required String name,
-      required Stream email,
-      required String password}) async {
+      {required RegisterParam param}) async {
     try {
-      await _dataSource.register(name: name, email: email, password: password);
+      await _dataSource.register(param: param);
 
       return right('signed up');
     } on AppExceptions catch (e) {

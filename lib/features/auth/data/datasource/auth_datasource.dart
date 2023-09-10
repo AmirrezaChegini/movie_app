@@ -1,14 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:movie_app/core/params/login_param.dart';
+import 'package:movie_app/core/params/register_param.dart';
 
 abstract class AuthDataSource {
-  Future<void> register({
-    required String name,
-    required Stream email,
-    required String password,
-  });
-  Future<Response> login({
-    required String email,
-    required String password,
-  });
+  Future<void> register({required RegisterParam param});
+  Future<Response> login({required LoginParam param});
   // Future<Response> refreshToken();
 }

@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:movie_app/core/constants/api.dart';
+import 'package:movie_app/core/params/login_param.dart';
+import 'package:movie_app/core/params/register_param.dart';
 import 'package:movie_app/core/utils/error_handler/app_exceptions.dart';
 import 'package:movie_app/core/utils/error_handler/check_exceptions.dart';
 import 'package:movie_app/features/auth/data/datasource/auth_datasource.dart';
@@ -10,15 +12,14 @@ class RemoteDatasourceImpl extends AuthDataSource {
   RemoteDatasourceImpl(this._dio);
 
   @override
-  Future<Response> login(
-      {required String email, required String password}) async {
+  Future<Response> login({required LoginParam param}) async {
     try {
       Response response = await _dio.post(
         Api.login,
         data: {
           'grant_type': 'password',
-          'username': email,
-          'password': password,
+          'username': param.email,
+          'password': param.password,
         },
       );
 
@@ -34,18 +35,14 @@ class RemoteDatasourceImpl extends AuthDataSource {
   }
 
   @override
-  Future<void> register({
-    required String name,
-    required Stream email,
-    required String password,
-  }) async {
+  Future<void> register({required RegisterParam param}) async {
     try {
       await _dio.post(
         Api.login,
         data: {
-          'name': name,
-          'email': email,
-          'password': password,
+          'name': param.name,
+          'email': param.email,
+          'password': param.password,
         },
       );
     } on DioException catch (e) {
