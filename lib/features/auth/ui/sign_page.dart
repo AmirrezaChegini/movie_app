@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:movie_app/core/constants/colors.dart';
 import 'package:movie_app/features/auth/ui/widgets/textbtn_auth.dart';
 import 'package:movie_app/features/auth/ui/widgets/textfield_auth.dart';
@@ -54,7 +55,9 @@ class SignPage extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               TextBtnAuth(
-                ontap: () {},
+                ontap: () {
+                  context.goNamed('login page');
+                },
                 backgroundColor: AppColor.white,
                 foregroundColor: AppColor.orang,
                 child: ' Do you have an account? Login',
