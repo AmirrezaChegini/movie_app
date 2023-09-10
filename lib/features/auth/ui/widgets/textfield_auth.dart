@@ -9,6 +9,7 @@ class TextFieldAuth extends StatelessWidget {
     required this.textInputType,
     required this.textInputAction,
     this.isObsecure = false,
+    this.suffixIcon,
   });
 
   final String hint;
@@ -16,6 +17,7 @@ class TextFieldAuth extends StatelessWidget {
   final TextInputType textInputType;
   final TextInputAction textInputAction;
   final bool isObsecure;
+  final Widget? suffixIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,8 @@ class TextFieldAuth extends StatelessWidget {
       obscureText: isObsecure,
       textInputAction: textInputAction,
       decoration: InputDecoration(
+        suffixIcon: suffixIcon,
+        suffixIconColor: AppColor.black.withOpacity(0.5),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
           borderSide: const BorderSide(
