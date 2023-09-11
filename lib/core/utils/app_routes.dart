@@ -1,12 +1,18 @@
 import 'package:go_router/go_router.dart';
-import 'package:movie_app/core/pages/main_wrapper.dart';
+import 'package:movie_app/features/main_wrapper/main_wrapper_page.dart';
 import 'package:movie_app/features/auth/ui/login_page.dart';
 import 'package:movie_app/features/auth/ui/sign_page.dart';
+import 'package:movie_app/features/splash/ui/splash_page.dart';
 
 //for navigating between pages and sending data
 final GoRouter router = GoRouter(
-  initialLocation: '/auth/login',
+  initialLocation: '/',
   routes: [
+    GoRoute(
+      name: 'splash page',
+      path: '/splash',
+      builder: (context, state) => const SplashPage(),
+    ),
     GoRoute(
       name: 'login page',
       path: '/auth/login',
@@ -18,9 +24,9 @@ final GoRouter router = GoRouter(
       builder: (context, state) => const SignPage(),
     ),
     GoRoute(
-      name: 'main wrapper',
+      name: 'main wrapper page',
       path: '/',
-      builder: (context, state) => const MainWrapper(),
+      builder: (context, state) => const MainWrapperPage(),
     ),
   ],
 );

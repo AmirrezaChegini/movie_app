@@ -10,7 +10,6 @@ class LoginUsecase implements Usecase<Either<String, String>, LoginParam> {
 
   @override
   Future<Either<String, String>> call(LoginParam param) async {
-    Either<String, String> either = await _repository.login(param: param);
-    return either;
+    return await _repository.login(param: param);
   }
 }

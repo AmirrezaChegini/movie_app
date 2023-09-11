@@ -13,6 +13,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc(this._registerUsecase, this._loginUsecase) : super(InitAuthState()) {
     on<RegisterEvent>((event, emit) async {
       emit(LoadingAuthState());
+      await Future.delayed(const Duration(seconds: 1));
 
       //no nedd to call, it call authmatically
       var either = await _registerUsecase(RegisterParam(
@@ -21,7 +22,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         event.password,
       ));
 
-      //when fold an either we seperate error response with correct response;
+      //when fold an either we left and right
+      // right it means we have correct data
+      // left it means we have an error message
 
       either.fold((l) {
         emit(FailAuthState(l));
@@ -32,11 +35,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     on<LoginEvent>((event, emit) async {
       emit(LoadingAuthState());
+      await Future.delayed(const Duration(seconds: 1));
 
       //no nedd to call, it call authmatically
       var either = await _loginUsecase(LoginParam(event.email, event.password));
 
-      //when fold an either we seperate error response with correct response;
+      //when fold an either we left and right
+      // right it means we have correct data
+      // left it means we have an error message
       either.fold((l) {
         emit(FailAuthState(l));
       }, (r) {

@@ -4,12 +4,12 @@ import 'package:movie_app/core/params/login_param.dart';
 import 'package:movie_app/core/params/register_param.dart';
 import 'package:movie_app/core/utils/error_handler/app_exceptions.dart';
 import 'package:movie_app/core/utils/error_handler/check_exceptions.dart';
-import 'package:movie_app/features/auth/data/datasource/auth_datasource.dart';
+import 'package:movie_app/features/auth/data/datasources/auth_datasource.dart';
 
-class RemoteDatasourceImpl extends AuthDataSource {
+class RemoteAuthDatasourceImpl extends AuthDataSource {
   final Dio _dio;
 
-  RemoteDatasourceImpl(this._dio);
+  RemoteAuthDatasourceImpl(this._dio);
 
   @override
   Future<Response> login({required LoginParam param}) async {

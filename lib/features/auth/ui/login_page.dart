@@ -8,7 +8,7 @@ import 'package:movie_app/features/auth/ui/bloc/auth_bloc.dart';
 import 'package:movie_app/features/auth/ui/bloc/auth_event.dart';
 import 'package:movie_app/features/auth/ui/bloc/auth_state.dart';
 import 'package:movie_app/features/auth/ui/cubit/pass_visible_cubit.dart';
-import 'package:movie_app/features/auth/ui/widgets/textbtn_auth.dart';
+import 'package:movie_app/core/widgets/textbtn.dart';
 import 'package:movie_app/features/auth/ui/widgets/textfield_auth.dart';
 
 class LoginPage extends StatefulWidget {
@@ -107,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const SizedBox(height: 25),
-              TextBtnAuth(
+              TextBtn(
                 ontap: () {
                   if (_formkey.currentState!.validate()) {
                     BlocProvider.of<AuthBloc>(context).add(LoginEvent(
@@ -128,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
                   },
                   listener: (context, state) {
                     if (state is CompleteAuthState) {
-                      context.pushNamed('main wrapper');
+                      context.pushNamed('main wrapper page');
                     }
 
                     if (state is FailAuthState) {
@@ -138,7 +138,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const SizedBox(height: 10),
-              TextBtnAuth(
+              TextBtn(
                 ontap: () {
                   context.goNamed('sign page');
                 },

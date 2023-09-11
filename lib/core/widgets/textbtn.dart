@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class TextBtnAuth extends StatelessWidget {
-  const TextBtnAuth({
+class TextBtn extends StatelessWidget {
+  const TextBtn({
     super.key,
     required this.child,
     required this.backgroundColor,
@@ -24,7 +24,7 @@ class TextBtnAuth extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
-        minimumSize: const Size.fromHeight(50),
+        minimumSize: Size(MediaQuery.of(context).size.width, 50),
       ),
       child: child,
     );

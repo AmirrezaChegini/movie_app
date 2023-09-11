@@ -6,5 +6,6 @@ class AppColor {
   static const Color white = Colors.white;
   static const Color tranparent = Colors.transparent;
   static const Color orang = Color(0xffFF9800);
+  static const Color yellow = Color(0xffFFFF00);
   static const Color red = Color(0xffF44336);
 }
