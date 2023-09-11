@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/core/constants/colors.dart';
 import 'package:movie_app/features/movies/domain/entity/genres_entity.dart';
+import 'package:movie_app/features/movies/ui/bloc/movie/movie_bloc.dart';
+import 'package:movie_app/features/movies/ui/bloc/movie/movie_event.dart';
+import 'package:movie_app/features/movies/ui/cubit/loading_cubit.dart';
 
 class ChoiceGenres extends StatefulWidget {
   const ChoiceGenres({
@@ -27,9 +31,26 @@ class _ChoiceGenresState extends State<ChoiceGenres>
       backgroundColor: AppColor.white,
       selectedColor: AppColor.orang,
       onSelected: (value) {
+        //this for changing ui
         setState(() {
           isChoice = !isChoice;
         });
+
+        //when choose some genres chnage this variables
+        BlocProvider.of<MovieBloc>(context).allMovieList.clear();
+        BlocProvider.of<MovieBloc>(context).page = 1;
+        List<int> genresId = BlocProvider.of<MovieBloc>(context).genresId;
+
+        genresId.contains(widget.genres.id)
+            ? BlocProvider.of<MovieBloc>(context)
+                .genresId
+                .remove(widget.genres.id)
+            : BlocProvider.of<MovieBloc>(context)
+                .genresId
+                .add(widget.genres.id);
+
+        BlocProvider.of<LoadingCubit>(context).showLoading(false);
+        BlocProvider.of<MovieBloc>(context).add(GetMoviesEvent());
       },
       selected: isChoice,
     );

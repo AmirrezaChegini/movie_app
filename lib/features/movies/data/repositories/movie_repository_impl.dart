@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:movie_app/core/params/movie_param.dart';
 import 'package:movie_app/core/utils/error_handler/app_exceptions.dart';
 import 'package:movie_app/features/movies/data/datasources/movie_datasource.dart';
 import 'package:movie_app/features/movies/data/model/genres_model.dart';
@@ -40,6 +41,23 @@ class MovieRepositoryImpl implements MovieRepository {
           .toList();
 
       return right(allGenresieList);
+    } on AppExceptions catch (e) {
+      return left(e.message);
+    }
+  }
+
+  @override
+  Future<Either<String, List<MovieEntity>>> getSpecificMovies(
+      {required MovieParam param}) async {
+    try {
+      Response response = await _datasource.getSpecificMovie(param: param);
+      //conevrt json object to dart model
+
+      List<MovieEntity> allMovieList = response.data['data']
+          .map<MovieEntity>((e) => MovieModel.fromMapJson(e))
+          .toList();
+
+      return right(allMovieList);
     } on AppExceptions catch (e) {
       return left(e.message);
     }
