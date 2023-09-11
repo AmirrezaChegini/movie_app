@@ -23,9 +23,13 @@ class _MoviesPageState extends State<MoviesPage> {
   void initState() {
     super.initState();
 
-    BlocProvider.of<MovieBloc>(context).add(GetAllMovieEvent(1));
+    BlocProvider.of<MovieBloc>(context).add(GetAllMovieEvent());
 
-    _scrollCtrl.addListener(() {});
+    _scrollCtrl.addListener(() {
+      if (_scrollCtrl.position.pixels == _scrollCtrl.position.maxScrollExtent) {
+        BlocProvider.of<MovieBloc>(context).add(GetAllMovieEvent());
+      }
+    });
   }
 
   @override
@@ -38,7 +42,7 @@ class _MoviesPageState extends State<MoviesPage> {
   Widget build(BuildContext context) {
     return BlocBuilder<MovieBloc, MovieState>(
       builder: (context, state) {
-        if (state is LoadingMovieState) {
+        if (state is InitMovieState) {
           return const Center(
             child: LoadingWidget(),
           );
@@ -52,7 +56,7 @@ class _MoviesPageState extends State<MoviesPage> {
                 backgroundColor: AppColor.tranparent,
                 foregroundColor: AppColor.white,
                 ontap: () {
-                  BlocProvider.of<MovieBloc>(context).add(GetAllMovieEvent(1));
+                  BlocProvider.of<MovieBloc>(context).add(GetAllMovieEvent());
                 },
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -97,6 +101,12 @@ class _MoviesPageState extends State<MoviesPage> {
                   crossAxisCount: 2,
                 ),
               ),
+              const SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: LoadingWidget(),
+                ),
+              )
             ],
           );
         }
