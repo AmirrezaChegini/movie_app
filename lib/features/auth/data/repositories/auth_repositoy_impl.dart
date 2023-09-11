@@ -4,7 +4,7 @@ import 'package:movie_app/core/params/login_param.dart';
 import 'package:movie_app/core/params/register_param.dart';
 import 'package:movie_app/core/utils/error_handler/app_exceptions.dart';
 import 'package:movie_app/core/utils/shared_pref.dart';
-import 'package:movie_app/features/auth/data/datasource/auth_datasource.dart';
+import 'package:movie_app/features/auth/data/datasources/auth_datasource.dart';
 import 'package:movie_app/features/auth/domain/repositories/auth_repository.dart';
 
 class AuthRepositoryImple extends AuthRepository {

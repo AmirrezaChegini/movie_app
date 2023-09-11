@@ -11,7 +11,6 @@ class RegisterUsecase
 
   @override
   Future<Either<String, String>> call(RegisterParam param) async {
-    Either<String, String> either = await _repository.register(param: param);
-    return either;
+    return await _repository.register(param: param);
   }
 }
