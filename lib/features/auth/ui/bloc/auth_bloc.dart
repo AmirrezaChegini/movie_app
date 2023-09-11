@@ -1,4 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_app/core/params/login_param.dart';
+import 'package:movie_app/core/params/register_param.dart';
 import 'package:movie_app/features/auth/domain/usecases/login_usecase.dart';
 import 'package:movie_app/features/auth/domain/usecases/register_usecase.dart';
 import 'package:movie_app/features/auth/ui/bloc/auth_event.dart';
@@ -13,7 +15,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(LoadingAuthState());
 
       //no nedd to call, it call authmatically
-      var either = await _registerUsecase(event.param);
+      var either = await _registerUsecase(RegisterParam(
+        event.name,
+        event.email,
+        event.password,
+      ));
 
       //when fold an either we seperate error response with correct response;
 
@@ -28,7 +34,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(LoadingAuthState());
 
       //no nedd to call, it call authmatically
-      var either = await _loginUsecase(event.param);
+      var either = await _loginUsecase(LoginParam(event.email, event.password));
 
       //when fold an either we seperate error response with correct response;
       either.fold((l) {

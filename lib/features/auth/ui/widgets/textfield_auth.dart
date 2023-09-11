@@ -10,6 +10,7 @@ class TextFieldAuth extends StatelessWidget {
     required this.textInputAction,
     this.isObsecure = false,
     this.suffixIcon,
+    required this.controller,
   });
 
   final String hint;
@@ -18,30 +19,48 @@ class TextFieldAuth extends StatelessWidget {
   final TextInputAction textInputAction;
   final bool isObsecure;
   final Widget? suffixIcon;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       validator: (value) => validate(value!),
+      controller: controller,
       keyboardType: textInputType,
       obscureText: isObsecure,
       textInputAction: textInputAction,
+      style: const TextStyle(color: AppColor.white),
       decoration: InputDecoration(
         suffixIcon: suffixIcon,
-        suffixIconColor: AppColor.black.withOpacity(0.5),
+        suffixIconColor: AppColor.white.withOpacity(0.5),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
           borderSide: const BorderSide(
-            color: AppColor.black,
+            color: AppColor.white,
           ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
           borderSide: const BorderSide(
-            color: AppColor.black,
+            color: AppColor.white,
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20),
+          borderSide: const BorderSide(
+            color: AppColor.red,
+          ),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20),
+          borderSide: const BorderSide(
+            color: AppColor.red,
           ),
         ),
         hintText: hint,
+        hintStyle: const TextStyle(
+          color: AppColor.white,
+        ),
       ),
     );
   }

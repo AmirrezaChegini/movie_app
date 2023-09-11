@@ -9,7 +9,7 @@ class TextBtnAuth extends StatelessWidget {
     required this.ontap,
   });
 
-  final String child;
+  final Widget child;
   final Color backgroundColor;
   final Color foregroundColor;
   final Function()? ontap;
@@ -26,7 +26,7 @@ class TextBtnAuth extends StatelessWidget {
         ),
         minimumSize: const Size.fromHeight(50),
       ),
-      child: Text(child),
+      child: child,
     );
   }
 }

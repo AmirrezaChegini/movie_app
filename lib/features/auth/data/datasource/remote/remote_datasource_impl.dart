@@ -38,7 +38,7 @@ class RemoteDatasourceImpl extends AuthDataSource {
   Future<void> register({required RegisterParam param}) async {
     try {
       await _dio.post(
-        Api.login,
+        Api.register,
         data: {
           'name': param.name,
           'email': param.email,
