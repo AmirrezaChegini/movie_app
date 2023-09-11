@@ -153,10 +153,7 @@ class _SignPageState extends State<SignPage> {
                       },
                       listener: (context, state) {
                         if (state is CompleteAuthState) {
-                          BlocProvider.of<AuthBloc>(context).add(LoginEvent(
-                            _emailCtrl.text,
-                            _passwordCtrl.text,
-                          ));
+                          context.goNamed('login page');
                         }
                         if (state is FailAuthState) {
                           showMessage(context, state.errorMessage);
