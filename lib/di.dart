@@ -8,6 +8,7 @@ import 'package:movie_app/features/auth/domain/usecases/login_usecase.dart';
 import 'package:movie_app/features/auth/domain/usecases/register_usecase.dart';
 import 'package:movie_app/features/auth/ui/bloc/auth_bloc.dart';
 import 'package:movie_app/features/auth/ui/cubit/pass_visible_cubit.dart';
+import 'package:movie_app/features/main_wrapper/ui/cubit/main_wrapper_cubit.dart';
 import 'package:movie_app/features/splash/domain/usecases/chech_token_usecase.dart';
 import 'package:movie_app/features/splash/domain/usecases/check_connectivity_usecase.dart';
 import 'package:movie_app/features/splash/ui/bloc/splash_block.dart';
@@ -40,6 +41,7 @@ Future<void> initLocator() async {
 
   //cubit
   locator.registerSingleton<PassVisibleCubit>(PassVisibleCubit());
+  locator.registerSingleton<MainWrapperCubit>(MainWrapperCubit());
 
   //bloc
   locator
