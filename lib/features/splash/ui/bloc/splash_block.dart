@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_app/features/splash/domain/usecases/chech_token_usecase.dart';
+import 'package:movie_app/features/splash/domain/usecases/check_token_usecase.dart';
 import 'package:movie_app/features/splash/domain/usecases/check_connectivity_usecase.dart';
 import 'package:movie_app/features/splash/ui/bloc/splash_event.dart';
 import 'package:movie_app/features/splash/ui/bloc/splash_state.dart';
