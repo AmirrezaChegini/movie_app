@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:movie_app/core/pages/main_wrapper.dart';
 import 'package:movie_app/features/auth/ui/login_page.dart';
 import 'package:movie_app/features/auth/ui/sign_page.dart';
 
@@ -15,6 +16,11 @@ final GoRouter router = GoRouter(
       name: 'sign page',
       path: '/auth/sign',
       builder: (context, state) => const SignPage(),
+    ),
+    GoRoute(
+      name: 'main wrapper',
+      path: '/',
+      builder: (context, state) => const MainWrapper(),
     ),
   ],
 );
