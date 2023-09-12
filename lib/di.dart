@@ -21,8 +21,11 @@ import 'package:movie_app/features/movies/ui/bloc/genres/genres_bloc.dart';
 import 'package:movie_app/features/movies/ui/bloc/movie/movie_bloc.dart';
 import 'package:movie_app/features/movies/ui/bloc/posters/posters_bloc.dart';
 import 'package:movie_app/features/movies/ui/cubit/chips_cubit.dart';
+import 'package:movie_app/features/splash/data/datasources/remote/remote_splash_datasource.dart';
+import 'package:movie_app/features/splash/data/datasources/splash_datasource.dart';
+import 'package:movie_app/features/splash/data/repositories/splash_repository_impl.dart';
+import 'package:movie_app/features/splash/domain/repositories/splash_repository.dart';
 import 'package:movie_app/features/splash/domain/usecases/check_token_usecase.dart';
-import 'package:movie_app/features/splash/domain/usecases/check_connectivity_usecase.dart';
 import 'package:movie_app/features/splash/ui/bloc/splash_block.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -40,20 +43,23 @@ Future<void> initLocator() async {
       await SharedPreferences.getInstance());
 
   //datasource
+  locator.registerSingleton<SplashDatasource>(
+      RemoteSplashDatasource(locator.get()));
   locator.registerSingleton<AuthDataSource>(
       RemoteAuthDatasourceImpl(locator.get()));
   locator
       .registerSingleton<MovieDatasource>(RemoteMovieDatasoure(locator.get()));
 
   //repositories
+  locator
+      .registerSingleton<SplashRepository>(SplashRepositoryImpl(locator.get()));
   locator.registerSingleton<AuthRepository>(AuthRepositoryImple(locator.get()));
   locator
       .registerSingleton<MovieRepository>(MovieRepositoryImpl(locator.get()));
 
   //usecase
   locator
-      .registerSingleton<CheckConnectivityUsecase>(CheckConnectivityUsecase());
-  locator.registerSingleton<CheckTokenUsecase>(CheckTokenUsecase());
+      .registerSingleton<CheckLogginUsecase>(CheckLogginUsecase(locator.get()));
   locator.registerSingleton<RegisterUsecase>(RegisterUsecase(locator.get()));
   locator.registerSingleton<LoginUsecase>(LoginUsecase(locator.get()));
   locator
@@ -69,8 +75,7 @@ Future<void> initLocator() async {
   locator.registerSingleton<ChipsCubit>(ChipsCubit());
 
   //bloc
-  locator
-      .registerSingleton<SplashBloc>(SplashBloc(locator.get(), locator.get()));
+  locator.registerSingleton<SplashBloc>(SplashBloc(locator.get()));
   locator.registerSingleton<AuthBloc>(AuthBloc(locator.get(), locator.get()));
   locator.registerSingleton<GenresBloc>(GenresBloc(locator.get()));
   locator.registerSingleton<PostersBloc>(
