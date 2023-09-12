@@ -7,8 +7,8 @@ import 'package:movie_app/features/movies/domain/entity/poster_eintity.dart';
 import 'package:movie_app/features/movies/ui/bloc/movie/movie_bloc.dart';
 import 'package:movie_app/features/movies/ui/bloc/movie/movie_event.dart';
 
-class MovieWidget extends StatelessWidget {
-  const MovieWidget({super.key, required this.poster});
+class PosterWidget extends StatelessWidget {
+  const PosterWidget({super.key, required this.poster});
 
   final PosterEntity poster;
 

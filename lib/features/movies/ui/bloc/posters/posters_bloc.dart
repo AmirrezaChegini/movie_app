@@ -23,27 +23,27 @@ class PostersBloc extends Bloc<PostersEvent, PostersState> {
         emit(LoadingPostersState());
       }
 
-      //if genresId is empty we fetch all posters
+      //if genresId equals 0 fetch all poster
       if (event.genreID == 0) {
         var either = await _postersUsecase(page);
 
         either.fold((errorMessage) {
           emit(FailPostersState(errorMessage));
-        }, (movieList) {
-          posterList.addAll(movieList);
-          emit(CompletePostersState(posterList));
+        }, (posterList) {
+          this.posterList.addAll(posterList);
+          emit(CompletePostersState(this.posterList, posterList.isNotEmpty));
         });
         ++page;
       } else {
-        //if genresId not empty fetch posters according to genres
+        //if genresId not equal 0 fetch poster according to genreID
         var either =
             await _specificPosterUsecase(MovieParam(page, event.genreID));
 
         either.fold((errorMessage) {
           emit(FailPostersState(errorMessage));
-        }, (movieList) {
-          posterList.addAll(movieList);
-          emit(CompletePostersState(posterList));
+        }, (posterList) {
+          this.posterList.addAll(posterList);
+          emit(CompletePostersState(posterList, posterList.isNotEmpty));
         });
         ++page;
       }

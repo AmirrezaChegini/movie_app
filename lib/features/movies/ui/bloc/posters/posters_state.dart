@@ -8,7 +8,8 @@ class LoadingPostersState extends PostersState {}
 
 class CompletePostersState extends PostersState {
   final List<PosterEntity> postersList;
-  CompletePostersState(this.postersList);
+  final bool showLoading;
+  CompletePostersState(this.postersList, this.showLoading);
 }
 
 class FailPostersState extends PostersState {

@@ -110,7 +110,7 @@ class _PosterPageState extends State<PosterPage> {
               return SliverGrid(
                 delegate: SliverChildBuilderDelegate(
                   childCount: state.postersList.length,
-                  (context, index) => MovieWidget(
+                  (context, index) => PosterWidget(
                     poster: state.postersList[index],
                   ),
                 ),
@@ -121,6 +121,22 @@ class _PosterPageState extends State<PosterPage> {
             }
 
             return const SliverToBoxAdapter();
+          },
+        ),
+        BlocBuilder<PostersBloc, PostersState>(
+          builder: (context, state) {
+            if (state is CompletePostersState &&
+                state.showLoading &&
+                _scrollCtrl.position.pixels != 0) {
+              return const SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: LoadingWidget(),
+                ),
+              );
+            } else {
+              return const SliverToBoxAdapter();
+            }
           },
         ),
       ],
