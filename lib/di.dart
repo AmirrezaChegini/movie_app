@@ -1,5 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:movie_app/features/account/data/datasource/remote/remote_user_datasource.dart';
+import 'package:movie_app/features/account/data/datasource/user_datasource.dart';
+import 'package:movie_app/features/account/data/repositories/user_repository_impl.dart';
+import 'package:movie_app/features/account/domain/repositories/user_repository.dart';
+import 'package:movie_app/features/account/domain/usecases/get_user_usecase.dart';
+import 'package:movie_app/features/account/ui/bloc/user_bloc.dart';
 import 'package:movie_app/features/auth/data/datasources/auth_datasource.dart';
 import 'package:movie_app/features/auth/data/datasources/remote/remote_auth_datasource_impl.dart';
 import 'package:movie_app/features/auth/data/repositories/auth_repositoy_impl.dart';
@@ -49,6 +55,8 @@ Future<void> initLocator() async {
       RemoteAuthDatasourceImpl(locator.get()));
   locator
       .registerSingleton<MovieDatasource>(RemoteMovieDatasoure(locator.get()));
+  locator
+      .registerSingleton<UserDatasource>(RemoteUserDatasource(locator.get()));
 
   //repositories
   locator
@@ -56,6 +64,7 @@ Future<void> initLocator() async {
   locator.registerSingleton<AuthRepository>(AuthRepositoryImple(locator.get()));
   locator
       .registerSingleton<MovieRepository>(MovieRepositoryImpl(locator.get()));
+  locator.registerSingleton<UserRepository>(UserRepositoryImpl(locator.get()));
 
   //usecase
   locator
@@ -68,6 +77,7 @@ Future<void> initLocator() async {
   locator.registerSingleton<GetSpecificPosterUsecase>(
       GetSpecificPosterUsecase(locator.get()));
   locator.registerSingleton<GetMovieUsecase>(GetMovieUsecase(locator.get()));
+  locator.registerSingleton<GetUserUsecase>(GetUserUsecase(locator.get()));
 
   //cubit
   locator.registerSingleton<PassVisibleCubit>(PassVisibleCubit());
@@ -81,4 +91,5 @@ Future<void> initLocator() async {
   locator.registerSingleton<PostersBloc>(
       PostersBloc(locator.get(), locator.get()));
   locator.registerSingleton<MovieBloc>(MovieBloc(locator.get()));
+  locator.registerSingleton<Userbloc>(Userbloc(locator.get()));
 }

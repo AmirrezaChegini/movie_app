@@ -1,11 +1,7 @@
 import 'package:movie_app/features/movies/domain/entity/poster_eintity.dart';
 
 class PosterModel extends PosterEntity {
-  PosterModel(
-    int id,
-    String rating,
-    String poster,
-  ) : super(id, rating, poster);
+  PosterModel(super.id, super.rating, super.poster);
 
   factory PosterModel.fromMapJson(Map<String, dynamic> jsobObject) {
     return PosterModel(

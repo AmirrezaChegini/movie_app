@@ -9,7 +9,7 @@ import 'package:movie_app/features/splash/ui/splash_page.dart';
 
 //for navigating between pages and sending data
 final GoRouter router = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/splash',
   navigatorKey: GlobalKey<NavigatorState>(),
   routes: [
     GoRoute(
