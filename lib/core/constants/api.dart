@@ -1,4 +1,6 @@
 class Api {
+  Api._();
+
   static const String register = 'api/v1/register';
   static const String login = 'oauth/token';
   static const String refreshToken = 'oauth/token';

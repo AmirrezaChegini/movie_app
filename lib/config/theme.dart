@@ -9,6 +9,15 @@ class AppTheme {
         color: AppColor.white,
         fontWeight: FontWeight.bold,
       ),
+      labelLarge: TextStyle(
+        fontSize: 16,
+        color: AppColor.orang,
+        fontWeight: FontWeight.bold,
+      ),
+      labelMedium: TextStyle(
+        fontSize: 15,
+        color: AppColor.white,
+      ),
     ),
   );
 }

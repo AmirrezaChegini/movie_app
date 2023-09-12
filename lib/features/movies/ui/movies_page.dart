@@ -96,7 +96,11 @@ class _MoviesPageState extends State<MoviesPage> {
                   child: TextBtn(
                     backgroundColor: AppColor.tranparent,
                     foregroundColor: AppColor.white,
-                    ontap: () {},
+                    ontap: () {
+                      BlocProvider.of<MovieBloc>(context).add(GetMoviesEvent());
+                      BlocProvider.of<GenresBloc>(context)
+                          .add(GetGenresEvent());
+                    },
                     child: const Text('Refresh'),
                   ),
                 ),
