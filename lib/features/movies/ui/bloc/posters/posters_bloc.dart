@@ -10,7 +10,7 @@ class PostersBloc extends Bloc<PostersEvent, PostersState> {
   final GetPostersUsecase _postersUsecase;
   final GetSpecificPosterUsecase _specificPosterUsecase;
 
-  List<PosterEntity> allMovieList = [];
+  List<PosterEntity> posterList = [];
   List<int> genresId = [];
   int page = 1;
 
@@ -20,7 +20,7 @@ class PostersBloc extends Bloc<PostersEvent, PostersState> {
   ) : super(InitPostersState()) {
     on<GetPostersEvent>((event, emit) async {
       //for show loading in center of page
-      if (allMovieList.isEmpty) {
+      if (posterList.isEmpty) {
         emit(LoadingPostersState());
       }
 
@@ -31,8 +31,8 @@ class PostersBloc extends Bloc<PostersEvent, PostersState> {
         either.fold((errorMessage) {
           emit(FailPostersState(errorMessage));
         }, (movieList) {
-          allMovieList.addAll(movieList);
-          emit(CompletePostersState(allMovieList));
+          posterList.addAll(movieList);
+          emit(CompletePostersState(posterList));
         });
         ++page;
       } else {
@@ -42,8 +42,8 @@ class PostersBloc extends Bloc<PostersEvent, PostersState> {
         either.fold((errorMessage) {
           emit(FailPostersState(errorMessage));
         }, (movieList) {
-          allMovieList.addAll(movieList);
-          emit(CompletePostersState(allMovieList));
+          posterList.addAll(movieList);
+          emit(CompletePostersState(posterList));
         });
         ++page;
       }

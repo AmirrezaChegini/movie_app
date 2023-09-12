@@ -9,7 +9,6 @@ import 'package:movie_app/features/movies/ui/bloc/genres/genres_state.dart';
 import 'package:movie_app/features/movies/ui/bloc/posters/posters_bloc.dart';
 import 'package:movie_app/features/movies/ui/bloc/posters/posters_event.dart';
 import 'package:movie_app/features/movies/ui/bloc/posters/posters_state.dart';
-import 'package:movie_app/features/movies/ui/cubit/loading_cubit.dart';
 import 'package:movie_app/features/movies/ui/widgets/choice_genres.dart';
 import 'package:movie_app/features/movies/ui/widgets/poster_widget.dart';
 
@@ -34,9 +33,6 @@ class _PosterPageState extends State<PosterPage> {
     _scrollCtrl.addListener(() {
       if (_scrollCtrl.position.pixels == _scrollCtrl.position.maxScrollExtent) {
         BlocProvider.of<PostersBloc>(context).add(GetPostersEvent());
-        BlocProvider.of<LoadingCubit>(context).showLoading(true);
-      } else {
-        BlocProvider.of<LoadingCubit>(context).showLoading(true);
       }
     });
   }
@@ -55,9 +51,7 @@ class _PosterPageState extends State<PosterPage> {
         SliverToBoxAdapter(
           child: SizedBox(
             height: 60,
-            child: BlocConsumer<GenresBloc, GenresState>(
-              listener: (context, state) =>
-                  BlocProvider.of<LoadingCubit>(context).showLoading(false),
+            child: BlocBuilder<GenresBloc, GenresState>(
               builder: (context, state) {
                 if (state is CompletedGenresState) {
                   return ListView.builder(
@@ -127,17 +121,6 @@ class _PosterPageState extends State<PosterPage> {
 
             return const SliverToBoxAdapter();
           },
-        ),
-        BlocBuilder<LoadingCubit, bool>(
-          builder: (context, state) => SliverToBoxAdapter(
-            child: Visibility(
-              visible: state,
-              child: const Padding(
-                padding: EdgeInsets.all(10),
-                child: LoadingWidget(),
-              ),
-            ),
-          ),
         ),
       ],
     );
