@@ -9,6 +9,7 @@ import 'package:movie_app/features/main_wrapper/ui/cubit/main_wrapper_cubit.dart
 import 'package:movie_app/features/movies/ui/bloc/genres/genres_bloc.dart';
 import 'package:movie_app/features/movies/ui/bloc/movie/movie_bloc.dart';
 import 'package:movie_app/features/movies/ui/bloc/posters/posters_bloc.dart';
+import 'package:movie_app/features/movies/ui/cubit/chips_cubit.dart';
 import 'package:movie_app/features/splash/ui/bloc/splash_block.dart';
 
 void main() async {
@@ -28,6 +29,7 @@ class MainApp extends StatelessWidget {
         BlocProvider(create: (context) => locator.get<PassVisibleCubit>()),
         BlocProvider(create: (context) => locator.get<AuthBloc>()),
         BlocProvider(create: (context) => locator.get<MainWrapperCubit>()),
+        BlocProvider(create: (context) => locator.get<ChipsCubit>()),
         BlocProvider(create: (context) => locator.get<GenresBloc>()),
         BlocProvider(create: (context) => locator.get<PostersBloc>()),
         BlocProvider(create: (context) => locator.get<MovieBloc>()),

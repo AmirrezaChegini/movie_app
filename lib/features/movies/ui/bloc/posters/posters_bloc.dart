@@ -11,7 +11,6 @@ class PostersBloc extends Bloc<PostersEvent, PostersState> {
   final GetSpecificPosterUsecase _specificPosterUsecase;
 
   List<PosterEntity> posterList = [];
-  List<int> genresId = [];
   int page = 1;
 
   PostersBloc(
@@ -25,7 +24,7 @@ class PostersBloc extends Bloc<PostersEvent, PostersState> {
       }
 
       //if genresId is empty we fetch all posters
-      if (genresId.isEmpty) {
+      if (event.genreID == 0) {
         var either = await _postersUsecase(page);
 
         either.fold((errorMessage) {
@@ -37,7 +36,8 @@ class PostersBloc extends Bloc<PostersEvent, PostersState> {
         ++page;
       } else {
         //if genresId not empty fetch posters according to genres
-        var either = await _specificPosterUsecase(MovieParam(page, genresId));
+        var either =
+            await _specificPosterUsecase(MovieParam(page, event.genreID));
 
         either.fold((errorMessage) {
           emit(FailPostersState(errorMessage));

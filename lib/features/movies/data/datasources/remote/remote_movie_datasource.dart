@@ -3,7 +3,6 @@ import 'package:movie_app/core/constants/api.dart';
 import 'package:movie_app/core/params/movie_param.dart';
 import 'package:movie_app/core/utils/error_handler/app_exceptions.dart';
 import 'package:movie_app/core/utils/error_handler/check_exceptions.dart';
-import 'package:movie_app/core/utils/extensions/int_list_extension.dart';
 import 'package:movie_app/features/movies/data/datasources/movie_datasource.dart';
 
 class RemoteMovieDatasoure implements MovieDatasource {
@@ -48,7 +47,7 @@ class RemoteMovieDatasoure implements MovieDatasource {
   Future<Response> getSpecificPoster({required MovieParam param}) async {
     try {
       Response response = await _dio.get(
-        'api/v1/genres/${param.genresId.seprateId()}/movies',
+        'api/v1/genres/${param.genreId}/movies',
         queryParameters: {
           'page': param.page,
         },

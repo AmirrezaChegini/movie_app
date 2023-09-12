@@ -20,6 +20,7 @@ import 'package:movie_app/features/movies/domain/usecases/get_spicific_poster_us
 import 'package:movie_app/features/movies/ui/bloc/genres/genres_bloc.dart';
 import 'package:movie_app/features/movies/ui/bloc/movie/movie_bloc.dart';
 import 'package:movie_app/features/movies/ui/bloc/posters/posters_bloc.dart';
+import 'package:movie_app/features/movies/ui/cubit/chips_cubit.dart';
 import 'package:movie_app/features/splash/domain/usecases/check_token_usecase.dart';
 import 'package:movie_app/features/splash/domain/usecases/check_connectivity_usecase.dart';
 import 'package:movie_app/features/splash/ui/bloc/splash_block.dart';
@@ -65,6 +66,7 @@ Future<void> initLocator() async {
   //cubit
   locator.registerSingleton<PassVisibleCubit>(PassVisibleCubit());
   locator.registerSingleton<MainWrapperCubit>(MainWrapperCubit());
+  locator.registerSingleton<ChipsCubit>(ChipsCubit());
 
   //bloc
   locator

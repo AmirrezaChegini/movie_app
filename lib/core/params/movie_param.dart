@@ -1,9 +1,9 @@
 class MovieParam {
   final int _page;
-  final List<int> _genresId;
+  final int _genreId;
 
-  MovieParam(this._page, this._genresId);
+  MovieParam(this._page, this._genreId);
 
   int get page => _page;
-  List<int> get genresId => _genresId;
+  int get genreId => _genreId;
 }

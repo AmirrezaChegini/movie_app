@@ -60,7 +60,8 @@ class _PosterPageState extends State<PosterPage> {
                     itemBuilder: (context, index) => Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 5),
                       child: ChoiceGenres(
-                        genres: state.genresList[index],
+                        index: index,
+                        genre: state.genresList[index],
                       ),
                     ),
                   );
