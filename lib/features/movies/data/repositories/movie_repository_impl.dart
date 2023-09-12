@@ -71,8 +71,7 @@ class MovieRepositoryImpl implements MovieRepository {
       Response response = await _datasource.getMovie(movieId: movieId);
 
       //conevrt json object to dart model
-      MovieEntity movie =
-          response.data.map<MovieEntity>((e) => MovieModel.fromMapJson(e));
+      MovieEntity movie = MovieModel.fromMapJson(response.data);
 
       return right(movie);
     } on AppExceptions catch (e) {

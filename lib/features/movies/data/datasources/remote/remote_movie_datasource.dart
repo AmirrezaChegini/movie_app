@@ -3,7 +3,7 @@ import 'package:movie_app/core/constants/api.dart';
 import 'package:movie_app/core/params/movie_param.dart';
 import 'package:movie_app/core/utils/error_handler/app_exceptions.dart';
 import 'package:movie_app/core/utils/error_handler/check_exceptions.dart';
-import 'package:movie_app/core/utils/extensions/genred_id_extension.dart';
+import 'package:movie_app/core/utils/extensions/int_list_extension.dart';
 import 'package:movie_app/features/movies/data/datasources/movie_datasource.dart';
 
 class RemoteMovieDatasoure implements MovieDatasource {
@@ -66,7 +66,7 @@ class RemoteMovieDatasoure implements MovieDatasource {
   @override
   Future<Response> getMovie({required int movieId}) async {
     try {
-      Response response = await _dio.get('${Api.allGenres}/$movieId');
+      Response response = await _dio.get('${Api.allMovie}/$movieId');
 
       return response;
     } on DioException catch (e) {

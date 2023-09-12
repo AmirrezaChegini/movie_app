@@ -1,24 +1,21 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:movie_app/core/constants/colors.dart';
 
 class Poster extends StatelessWidget {
   const Poster({
     super.key,
-    required this.height,
-    this.width,
+    required this.photo,
   });
 
-  final double? width;
-  final double height;
+  final String photo;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: width,
-      height: height,
-      decoration: BoxDecoration(
-        color: AppColor.red,
-        borderRadius: BorderRadius.circular(15),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(15),
+      child: CachedNetworkImage(
+        imageUrl: photo,
+        fit: BoxFit.cover,
       ),
     );
   }

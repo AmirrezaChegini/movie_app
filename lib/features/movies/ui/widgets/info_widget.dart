@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/core/constants/colors.dart';
+import 'package:movie_app/core/utils/extensions/dynamic_list__extension.dart';
+import 'package:movie_app/features/movies/domain/entity/movie_entity.dart';
 
 class InfoWidget extends StatelessWidget {
   const InfoWidget({
     super.key,
+    required this.movie,
   });
+
+  final MovieEntity movie;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +32,7 @@ class InfoWidget extends StatelessWidget {
                     style: Theme.of(context).textTheme.labelLarge,
                   ),
                   Text(
-                    '140 min',
+                    movie.time,
                     style: Theme.of(context).textTheme.labelMedium,
                   ),
                   const SizedBox(height: 20),
@@ -36,7 +41,7 @@ class InfoWidget extends StatelessWidget {
                     style: Theme.of(context).textTheme.labelLarge,
                   ),
                   Text(
-                    'PG-13',
+                    movie.rated,
                     style: Theme.of(context).textTheme.labelMedium,
                   ),
                 ],
@@ -52,7 +57,7 @@ class InfoWidget extends StatelessWidget {
                     style: Theme.of(context).textTheme.labelLarge,
                   ),
                   Text(
-                    'Comdedy, drama, music',
+                    movie.genres.seperateGenres(),
                     style: Theme.of(context).textTheme.labelMedium,
                   ),
                   const SizedBox(height: 20),
@@ -61,7 +66,7 @@ class InfoWidget extends StatelessWidget {
                     style: Theme.of(context).textTheme.labelLarge,
                   ),
                   Text(
-                    '14 Oct 1994',
+                    movie.releasedTime,
                     style: Theme.of(context).textTheme.labelMedium,
                   ),
                 ],

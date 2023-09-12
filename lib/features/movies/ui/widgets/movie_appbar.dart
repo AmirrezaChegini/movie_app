@@ -1,10 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_app/core/constants/colors.dart';
 
 class MovieAppbar extends StatelessWidget {
   const MovieAppbar({
     super.key,
+    required this.photo,
   });
+
+  final String photo;
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +20,8 @@ class MovieAppbar extends StatelessWidget {
       floating: true,
       pinned: true,
       flexibleSpace: FlexibleSpaceBar(
-        background: Image.asset(
-          'assets/images/scream.jpg',
+        background: CachedNetworkImage(
+          imageUrl: photo,
           fit: BoxFit.cover,
         ),
       ),

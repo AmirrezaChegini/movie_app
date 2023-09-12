@@ -6,10 +6,11 @@ class MovieModel extends MovieEntity {
     String title,
     String rated,
     String time,
-    List<String> genres,
+    List genres,
+    List? images,
     String releasedTime,
     String plot,
-  ) : super(id, title, rated, time, genres, releasedTime, plot);
+  ) : super(id, title, rated, time, genres, images, releasedTime, plot);
 
   factory MovieModel.fromMapJson(Map<String, dynamic> jsonObject) {
     return MovieModel(
@@ -18,6 +19,7 @@ class MovieModel extends MovieEntity {
       jsonObject['rated'],
       jsonObject['runtime'],
       jsonObject['genres'],
+      jsonObject['images'],
       jsonObject['released'],
       jsonObject['plot'],
     );

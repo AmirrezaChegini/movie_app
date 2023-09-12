@@ -114,9 +114,9 @@ class _PosterPageState extends State<PosterPage> {
             if (state is CompletePostersState) {
               return SliverGrid(
                 delegate: SliverChildBuilderDelegate(
-                  childCount: state.allMovieList.length,
+                  childCount: state.postersList.length,
                   (context, index) => MovieWidget(
-                    movie: state.allMovieList[index],
+                    poster: state.postersList[index],
                   ),
                 ),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
