@@ -2,12 +2,12 @@ import 'package:go_router/go_router.dart';
 import 'package:movie_app/features/main_wrapper/main_wrapper_page.dart';
 import 'package:movie_app/features/auth/ui/login_page.dart';
 import 'package:movie_app/features/auth/ui/sign_page.dart';
-import 'package:movie_app/features/movies/ui/movie_detail_page.dart';
+import 'package:movie_app/features/movies/ui/movie_page.dart';
 import 'package:movie_app/features/splash/ui/splash_page.dart';
 
 //for navigating between pages and sending data
 final GoRouter router = GoRouter(
-  initialLocation: '/movie-detail',
+  initialLocation: '/',
   routes: [
     GoRoute(
       name: 'splash page',
@@ -30,9 +30,9 @@ final GoRouter router = GoRouter(
       builder: (context, state) => const MainWrapperPage(),
     ),
     GoRoute(
-      name: 'movie detail page',
-      path: '/movie-detail',
-      builder: (context, state) => const MovieDetailPage(),
+      name: 'movie page',
+      path: '/movie',
+      builder: (context, state) => const MoviePage(),
     ),
   ],
 );

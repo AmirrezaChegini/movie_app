@@ -7,16 +7,16 @@ import 'package:movie_app/features/movies/ui/bloc/posters/posters_event.dart';
 import 'package:movie_app/features/movies/ui/bloc/posters/posters_state.dart';
 
 class PostersBloc extends Bloc<PostersEvent, PostersState> {
-  final GetPostersUsecase _allMovieUsecase;
-  final GetSpecificPosterUsecase _specificMovieUsecase;
+  final GetPostersUsecase _postersUsecase;
+  final GetSpecificPosterUsecase _specificPosterUsecase;
 
   List<PosterEntity> allMovieList = [];
   List<int> genresId = [];
   int page = 1;
 
   PostersBloc(
-    this._allMovieUsecase,
-    this._specificMovieUsecase,
+    this._postersUsecase,
+    this._specificPosterUsecase,
   ) : super(InitPostersState()) {
     on<GetPostersEvent>((event, emit) async {
       //for show loading in center of page
@@ -26,7 +26,7 @@ class PostersBloc extends Bloc<PostersEvent, PostersState> {
 
       //if genresId is empty we fetch all posters
       if (genresId.isEmpty) {
-        var either = await _allMovieUsecase(page);
+        var either = await _postersUsecase(page);
 
         either.fold((errorMessage) {
           emit(FailPostersState(errorMessage));
@@ -37,7 +37,7 @@ class PostersBloc extends Bloc<PostersEvent, PostersState> {
         ++page;
       } else {
         //if genresId not empty fetch posters according to genres
-        var either = await _specificMovieUsecase(MovieParam(page, genresId));
+        var either = await _specificPosterUsecase(MovieParam(page, genresId));
 
         either.fold((errorMessage) {
           emit(FailPostersState(errorMessage));
