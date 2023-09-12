@@ -5,8 +5,10 @@ import 'package:movie_app/core/utils/error_handler/app_exceptions.dart';
 import 'package:movie_app/features/movies/data/datasources/movie_datasource.dart';
 import 'package:movie_app/features/movies/data/model/genres_model.dart';
 import 'package:movie_app/features/movies/data/model/movie_model.dart';
+import 'package:movie_app/features/movies/data/model/poster_model.dart';
 import 'package:movie_app/features/movies/domain/entity/genres_entity.dart';
-import 'package:movie_app/features/movies/domain/entity/movie_eintity.dart';
+import 'package:movie_app/features/movies/domain/entity/movie_entity.dart';
+import 'package:movie_app/features/movies/domain/entity/poster_eintity.dart';
 import 'package:movie_app/features/movies/domain/repositories/movie_repository.dart';
 
 class MovieRepositoryImpl implements MovieRepository {
@@ -14,17 +16,17 @@ class MovieRepositoryImpl implements MovieRepository {
   MovieRepositoryImpl(this._datasource);
 
   @override
-  Future<Either<String, List<MovieEntity>>> getAllMovie(
+  Future<Either<String, List<PosterEntity>>> getPosters(
       {required int page}) async {
     try {
-      Response response = await _datasource.getAllMovie(page: page);
+      Response response = await _datasource.getPosters(page: page);
 
       //conevrt json object to dart model
-      List<MovieEntity> allMovieList = response.data['data']
-          .map<MovieEntity>((e) => MovieModel.fromMapJson(e))
+      List<PosterEntity> postersList = response.data['data']
+          .map<PosterEntity>((e) => PosterModel.fromMapJson(e))
           .toList();
 
-      return right(allMovieList);
+      return right(postersList);
     } on AppExceptions catch (e) {
       return left(e.message);
     }
@@ -36,28 +38,42 @@ class MovieRepositoryImpl implements MovieRepository {
       Response response = await _datasource.getAllGenres();
 
       //conevrt json object to dart model
-      List<GenresEntity> allGenresieList = response.data
+      List<GenresEntity> genresList = response.data
           .map<GenresEntity>((e) => GenresModel.fromMapJson(e))
           .toList();
 
-      return right(allGenresieList);
+      return right(genresList);
     } on AppExceptions catch (e) {
       return left(e.message);
     }
   }
 
   @override
-  Future<Either<String, List<MovieEntity>>> getSpecificMovies(
+  Future<Either<String, List<PosterEntity>>> getSpecificPoster(
       {required MovieParam param}) async {
     try {
-      Response response = await _datasource.getSpecificMovie(param: param);
-      //conevrt json object to dart model
+      Response response = await _datasource.getSpecificPoster(param: param);
 
-      List<MovieEntity> allMovieList = response.data['data']
-          .map<MovieEntity>((e) => MovieModel.fromMapJson(e))
+      //conevrt json object to dart model
+      List<PosterEntity> postersList = response.data['data']
+          .map<PosterEntity>((e) => PosterModel.fromMapJson(e))
           .toList();
 
-      return right(allMovieList);
+      return right(postersList);
+    } on AppExceptions catch (e) {
+      return left(e.message);
+    }
+  }
+
+  @override
+  Future<Either<String, MovieEntity>> getMovie({required int movieId}) async {
+    try {
+      Response response = await _datasource.getMovie(movieId: movieId);
+
+      //conevrt json object to dart model
+      MovieEntity movie = MovieModel.fromMapJson(response.data);
+
+      return right(movie);
     } on AppExceptions catch (e) {
       return left(e.message);
     }

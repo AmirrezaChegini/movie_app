@@ -3,7 +3,6 @@ import 'package:movie_app/core/constants/api.dart';
 import 'package:movie_app/core/params/movie_param.dart';
 import 'package:movie_app/core/utils/error_handler/app_exceptions.dart';
 import 'package:movie_app/core/utils/error_handler/check_exceptions.dart';
-import 'package:movie_app/core/utils/extensions/genred_id_extension.dart';
 import 'package:movie_app/features/movies/data/datasources/movie_datasource.dart';
 
 class RemoteMovieDatasoure implements MovieDatasource {
@@ -12,7 +11,7 @@ class RemoteMovieDatasoure implements MovieDatasource {
 
   // fetch all movies
   @override
-  Future<Response> getAllMovie({int page = 1}) async {
+  Future<Response> getPosters({int page = 1}) async {
     try {
       Response response = await _dio.get(
         Api.allMovie,
@@ -45,14 +44,28 @@ class RemoteMovieDatasoure implements MovieDatasource {
 
   //get movies according to genres
   @override
-  Future<Response> getSpecificMovie({required MovieParam param}) async {
+  Future<Response> getSpecificPoster({required MovieParam param}) async {
     try {
       Response response = await _dio.get(
-        'api/v1/genres/${param.genresId.seprateId()}/movies',
+        'api/v1/genres/${param.genreId}/movies',
         queryParameters: {
           'page': param.page,
         },
       );
+
+      return response;
+    } on DioException catch (e) {
+      e.response == null
+          ? throw FetchDataEx()
+          : throw CheckExceptions.validate(e.response!);
+    }
+  }
+
+  //fetch details of one movie
+  @override
+  Future<Response> getMovie({required int movieId}) async {
+    try {
+      Response response = await _dio.get('${Api.allMovie}/$movieId');
 
       return response;
     } on DioException catch (e) {

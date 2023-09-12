@@ -1,3 +1,6 @@
 abstract class MovieEvent {}
 
-class GetMoviesEvent extends MovieEvent {}
+class GetMovieEvent extends MovieEvent {
+  final int movieId;
+  GetMovieEvent(this.movieId);
+}

@@ -1,5 +1,5 @@
 // [1,2,3] => '1,2,3'
-extension GenresId on List<int> {
+extension IntList on List<int> {
   String seprateId() {
     List<int> genresId = this;
 

@@ -3,12 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/config/theme.dart';
 import 'package:movie_app/core/utils/app_routes.dart';
 import 'package:movie_app/di.dart';
+import 'package:movie_app/features/user/ui/bloc/user_bloc.dart';
 import 'package:movie_app/features/auth/ui/bloc/auth_bloc.dart';
 import 'package:movie_app/features/auth/ui/cubit/pass_visible_cubit.dart';
 import 'package:movie_app/features/main_wrapper/ui/cubit/main_wrapper_cubit.dart';
 import 'package:movie_app/features/movies/ui/bloc/genres/genres_bloc.dart';
 import 'package:movie_app/features/movies/ui/bloc/movie/movie_bloc.dart';
-import 'package:movie_app/features/movies/ui/cubit/loading_cubit.dart';
+import 'package:movie_app/features/movies/ui/bloc/posters/posters_bloc.dart';
+import 'package:movie_app/features/movies/ui/cubit/chips_cubit.dart';
 import 'package:movie_app/features/splash/ui/bloc/splash_block.dart';
 
 void main() async {
@@ -28,9 +30,11 @@ class MainApp extends StatelessWidget {
         BlocProvider(create: (context) => locator.get<PassVisibleCubit>()),
         BlocProvider(create: (context) => locator.get<AuthBloc>()),
         BlocProvider(create: (context) => locator.get<MainWrapperCubit>()),
-        BlocProvider(create: (context) => locator.get<LoadingCubit>()),
+        BlocProvider(create: (context) => locator.get<ChipsCubit>()),
         BlocProvider(create: (context) => locator.get<GenresBloc>()),
+        BlocProvider(create: (context) => locator.get<PostersBloc>()),
         BlocProvider(create: (context) => locator.get<MovieBloc>()),
+        BlocProvider(create: (context) => locator.get<Userbloc>()),
       ],
       child: MaterialApp.router(
         routerConfig: router,

@@ -20,7 +20,7 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     super.initState();
 
-    BlocProvider.of<SplashBloc>(context).add(CheckTokenEvent());
+    BlocProvider.of<SplashBloc>(context).add(CheckLoggedIn());
   }
 
   @override
@@ -43,15 +43,15 @@ class _SplashPageState extends State<SplashPage> {
               right: 16,
               child: BlocConsumer<SplashBloc, SplashState>(
                 builder: (context, state) {
-                  if (state is InitSplashState) {
+                  if (state is LoadingSplashState) {
                     return const LoadingWidget();
                   }
-                  if (state is NotConnectivitySplashState) {
+                  if (state is NotConnectivityState) {
                     return TextBtn(
                       backgroundColor: AppColor.tranparent,
                       foregroundColor: AppColor.white,
                       ontap: () => BlocProvider.of<SplashBloc>(context)
-                          .add(CheckTokenEvent()),
+                          .add(CheckLoggedIn()),
                       child: Text(state.errorMessage),
                     );
                   }
@@ -59,11 +59,11 @@ class _SplashPageState extends State<SplashPage> {
                   return const SizedBox();
                 },
                 listener: (context, state) {
-                  if (state is AuthorizedSplashState) {
+                  if (state is AuthorizedState) {
                     context.goNamed('main wrapper page');
                   }
 
-                  if (state is NotAuthorizedSplashState) {
+                  if (state is NotAuthorizedState) {
                     context.goNamed('login page');
                   }
                 },

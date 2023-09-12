@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/core/constants/colors.dart';
-import 'package:movie_app/features/account/ui/account_page.dart';
+import 'package:movie_app/features/user/ui/account_page.dart';
 import 'package:movie_app/features/main_wrapper/ui/cubit/main_wrapper_cubit.dart';
 import 'package:movie_app/features/main_wrapper/ui/widgets/bottom_nav_bar.dart';
-import 'package:movie_app/features/movies/ui/movies_page.dart';
+import 'package:movie_app/features/movies/ui/poster_page.dart';
 
 class MainWrapperPage extends StatelessWidget {
   const MainWrapperPage({super.key});
@@ -25,7 +25,7 @@ class MainWrapperPage extends StatelessWidget {
           index: state,
           children: const [
             AccountPage(),
-            MoviesPage(),
+            PosterPage(),
           ],
         ),
       ),

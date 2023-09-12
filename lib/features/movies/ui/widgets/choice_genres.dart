@@ -2,60 +2,43 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/core/constants/colors.dart';
 import 'package:movie_app/features/movies/domain/entity/genres_entity.dart';
-import 'package:movie_app/features/movies/ui/bloc/movie/movie_bloc.dart';
-import 'package:movie_app/features/movies/ui/bloc/movie/movie_event.dart';
-import 'package:movie_app/features/movies/ui/cubit/loading_cubit.dart';
+import 'package:movie_app/features/movies/ui/bloc/posters/posters_bloc.dart';
+import 'package:movie_app/features/movies/ui/bloc/posters/posters_event.dart';
+import 'package:movie_app/features/movies/ui/cubit/chips_cubit.dart';
 
-class ChoiceGenres extends StatefulWidget {
+class ChoiceGenres extends StatelessWidget {
   const ChoiceGenres({
     super.key,
-    required this.genres,
+    required this.genre,
+    required this.index,
   });
 
-  final GenresEntity genres;
-
-  @override
-  State<ChoiceGenres> createState() => _ChoiceGenresState();
-}
-
-class _ChoiceGenresState extends State<ChoiceGenres>
-    with AutomaticKeepAliveClientMixin {
-  bool isChoice = false;
+  final GenresEntity genre;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
-    return ChoiceChip(
-      label: Text(widget.genres.name),
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      backgroundColor: AppColor.white,
-      selectedColor: AppColor.orang,
-      onSelected: (value) {
-        //this for changing ui
-        setState(() {
-          isChoice = !isChoice;
-        });
+    return BlocBuilder<ChipsCubit, int>(
+      builder: (context, state) => ChoiceChip(
+        label: Text(genre.name),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        backgroundColor: AppColor.white,
+        selectedColor: AppColor.orang,
+        onSelected: (value) {
+          //reset page and posterList for getting new data
+          BlocProvider.of<PostersBloc>(context).posterList.clear();
+          BlocProvider.of<PostersBloc>(context).page = 1;
 
-        //when choose some genres chnage this variables
-        BlocProvider.of<MovieBloc>(context).allMovieList.clear();
-        BlocProvider.of<MovieBloc>(context).page = 1;
-        List<int> genresId = BlocProvider.of<MovieBloc>(context).genresId;
+          //changing selected ui chips
+          BlocProvider.of<ChipsCubit>(context).i == index
+              ? BlocProvider.of<ChipsCubit>(context).chnageIndex(-1)
+              : BlocProvider.of<ChipsCubit>(context).chnageIndex(index);
 
-        genresId.contains(widget.genres.id)
-            ? BlocProvider.of<MovieBloc>(context)
-                .genresId
-                .remove(widget.genres.id)
-            : BlocProvider.of<MovieBloc>(context)
-                .genresId
-                .add(widget.genres.id);
-
-        BlocProvider.of<LoadingCubit>(context).showLoading(false);
-        BlocProvider.of<MovieBloc>(context).add(GetMoviesEvent());
-      },
-      selected: isChoice,
+          BlocProvider.of<PostersBloc>(context)
+              .add(GetPostersEvent(genreID: genre.id));
+        },
+        selected: state == index,
+      ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }

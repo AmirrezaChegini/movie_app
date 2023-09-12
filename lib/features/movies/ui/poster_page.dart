@@ -6,36 +6,33 @@ import 'package:movie_app/core/widgets/textbtn.dart';
 import 'package:movie_app/features/movies/ui/bloc/genres/genres_bloc.dart';
 import 'package:movie_app/features/movies/ui/bloc/genres/genres_event.dart';
 import 'package:movie_app/features/movies/ui/bloc/genres/genres_state.dart';
-import 'package:movie_app/features/movies/ui/bloc/movie/movie_bloc.dart';
-import 'package:movie_app/features/movies/ui/bloc/movie/movie_event.dart';
-import 'package:movie_app/features/movies/ui/bloc/movie/movie_state.dart';
-import 'package:movie_app/features/movies/ui/cubit/loading_cubit.dart';
+import 'package:movie_app/features/movies/ui/bloc/posters/posters_bloc.dart';
+import 'package:movie_app/features/movies/ui/bloc/posters/posters_event.dart';
+import 'package:movie_app/features/movies/ui/bloc/posters/posters_state.dart';
 import 'package:movie_app/features/movies/ui/widgets/choice_genres.dart';
-import 'package:movie_app/features/movies/ui/widgets/movie_widget.dart';
+import 'package:movie_app/features/movies/ui/widgets/poster_widget.dart';
 
-class MoviesPage extends StatefulWidget {
-  const MoviesPage({super.key});
+class PosterPage extends StatefulWidget {
+  const PosterPage({super.key});
 
   @override
-  State<MoviesPage> createState() => _MoviesPageState();
+  State<PosterPage> createState() => _PosterPageState();
 }
 
-class _MoviesPageState extends State<MoviesPage> {
+class _PosterPageState extends State<PosterPage> {
   final ScrollController _scrollCtrl = ScrollController();
 
   @override
   void initState() {
     super.initState();
 
-    BlocProvider.of<MovieBloc>(context).add(GetMoviesEvent());
+    BlocProvider.of<PostersBloc>(context).add(GetPostersEvent());
     BlocProvider.of<GenresBloc>(context).add(GetGenresEvent());
 
+    //create a listener for implement pagination
     _scrollCtrl.addListener(() {
       if (_scrollCtrl.position.pixels == _scrollCtrl.position.maxScrollExtent) {
-        BlocProvider.of<MovieBloc>(context).add(GetMoviesEvent());
-        BlocProvider.of<LoadingCubit>(context).showLoading(true);
-      } else {
-        BlocProvider.of<LoadingCubit>(context).showLoading(true);
+        BlocProvider.of<PostersBloc>(context).add(GetPostersEvent());
       }
     });
   }
@@ -63,7 +60,8 @@ class _MoviesPageState extends State<MoviesPage> {
                     itemBuilder: (context, index) => Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 5),
                       child: ChoiceGenres(
-                        genres: state.genresList[index],
+                        index: index,
+                        genre: state.genresList[index],
                       ),
                     ),
                   );
@@ -73,9 +71,9 @@ class _MoviesPageState extends State<MoviesPage> {
             ),
           ),
         ),
-        BlocBuilder<MovieBloc, MovieState>(
+        BlocBuilder<PostersBloc, PostersState>(
           builder: (context, state) {
-            if (state is LoadingMovieState) {
+            if (state is LoadingPostersState) {
               return SliverToBoxAdapter(
                 child: Padding(
                   padding: EdgeInsets.only(
@@ -85,7 +83,7 @@ class _MoviesPageState extends State<MoviesPage> {
               );
             }
 
-            if (state is FailMovieState) {
+            if (state is FailPostersState) {
               return SliverToBoxAdapter(
                 child: Padding(
                   padding: EdgeInsets.only(
@@ -96,19 +94,24 @@ class _MoviesPageState extends State<MoviesPage> {
                   child: TextBtn(
                     backgroundColor: AppColor.tranparent,
                     foregroundColor: AppColor.white,
-                    ontap: () {},
+                    ontap: () {
+                      BlocProvider.of<PostersBloc>(context)
+                          .add(GetPostersEvent());
+                      BlocProvider.of<GenresBloc>(context)
+                          .add(GetGenresEvent());
+                    },
                     child: const Text('Refresh'),
                   ),
                 ),
               );
             }
 
-            if (state is CompleteMovieState) {
+            if (state is CompletePostersState) {
               return SliverGrid(
                 delegate: SliverChildBuilderDelegate(
-                  childCount: state.allMovieList.length,
-                  (context, index) => MovieWidget(
-                    movie: state.allMovieList[index],
+                  childCount: state.postersList.length,
+                  (context, index) => PosterWidget(
+                    poster: state.postersList[index],
                   ),
                 ),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -120,16 +123,21 @@ class _MoviesPageState extends State<MoviesPage> {
             return const SliverToBoxAdapter();
           },
         ),
-        BlocBuilder<LoadingCubit, bool>(
-          builder: (context, state) => SliverToBoxAdapter(
-            child: Visibility(
-              visible: state,
-              child: const Padding(
-                padding: EdgeInsets.all(10),
-                child: LoadingWidget(),
-              ),
-            ),
-          ),
+        BlocBuilder<PostersBloc, PostersState>(
+          builder: (context, state) {
+            if (state is CompletePostersState &&
+                state.showLoading &&
+                _scrollCtrl.position.pixels != 0) {
+              return const SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: LoadingWidget(),
+                ),
+              );
+            } else {
+              return const SliverToBoxAdapter();
+            }
+          },
         ),
       ],
     );

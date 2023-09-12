@@ -1,3 +1,3 @@
 abstract class SplashEvent {}
 
-class CheckTokenEvent extends SplashEvent {}
+class CheckLoggedIn extends SplashEvent {}

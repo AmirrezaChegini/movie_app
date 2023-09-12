@@ -1,4 +1,4 @@
-import 'package:movie_app/features/movies/domain/entity/movie_eintity.dart';
+import 'package:movie_app/features/movies/domain/entity/movie_entity.dart';
 
 abstract class MovieState {}
 
@@ -7,8 +7,8 @@ class InitMovieState extends MovieState {}
 class LoadingMovieState extends MovieState {}
 
 class CompleteMovieState extends MovieState {
-  final List<MovieEntity> allMovieList;
-  CompleteMovieState(this.allMovieList);
+  final MovieEntity movie;
+  CompleteMovieState(this.movie);
 }
 
 class FailMovieState extends MovieState {

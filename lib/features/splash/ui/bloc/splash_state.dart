@@ -1,13 +1,13 @@
 abstract class SplashState {}
 
-class InitSplashState extends SplashState {}
+class LoadingSplashState extends SplashState {}
 
-class NotAuthorizedSplashState extends SplashState {}
+class NotAuthorizedState extends SplashState {}
 
-class AuthorizedSplashState extends SplashState {}
+class AuthorizedState extends SplashState {}
 
-class NotConnectivitySplashState extends SplashState {
+class NotConnectivityState extends SplashState {
   final String errorMessage;
 
-  NotConnectivitySplashState(this.errorMessage);
+  NotConnectivityState(this.errorMessage);
 }

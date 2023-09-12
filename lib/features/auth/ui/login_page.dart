@@ -128,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
                   },
                   listener: (context, state) {
                     if (state is CompleteAuthState) {
-                      context.pushNamed('main wrapper page');
+                      context.goNamed('main wrapper page');
                     }
 
                     if (state is FailAuthState) {
