@@ -1,17 +1,25 @@
-import 'package:movie_app/features/movies/domain/entity/movie_eintity.dart';
+import 'package:movie_app/features/movies/domain/entity/movie_entity.dart';
 
 class MovieModel extends MovieEntity {
   MovieModel(
     int id,
-    String rating,
-    String poster,
-  ) : super(id, rating, poster);
+    String title,
+    String rated,
+    String time,
+    List<String> genres,
+    String releasedTime,
+    String plot,
+  ) : super(id, title, rated, time, genres, releasedTime, plot);
 
-  factory MovieModel.fromMapJson(Map<String, dynamic> jsobObject) {
+  factory MovieModel.fromMapJson(Map<String, dynamic> jsonObject) {
     return MovieModel(
-      jsobObject['id'],
-      jsobObject['imdb_rating'],
-      jsobObject['poster'],
+      jsonObject['id'],
+      jsonObject['title'],
+      jsonObject['rated'],
+      jsonObject['runtime'],
+      jsonObject['genres'],
+      jsonObject['released'],
+      jsonObject['plot'],
     );
   }
 }

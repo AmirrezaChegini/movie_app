@@ -4,8 +4,8 @@ import 'package:movie_app/features/movies/ui/widgets/info_widget.dart';
 import 'package:movie_app/features/movies/ui/widgets/movie_appbar.dart';
 import 'package:movie_app/features/movies/ui/widgets/poster.dart';
 
-class MovieDetailPage extends StatelessWidget {
-  const MovieDetailPage({super.key});
+class MoviePage extends StatelessWidget {
+  const MoviePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +68,7 @@ class MovieDetailPage extends StatelessWidget {
               height: 150,
               child: ListView.builder(
                 itemCount: 5,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 11),
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) => const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 5),

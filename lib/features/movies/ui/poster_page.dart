@@ -6,33 +6,34 @@ import 'package:movie_app/core/widgets/textbtn.dart';
 import 'package:movie_app/features/movies/ui/bloc/genres/genres_bloc.dart';
 import 'package:movie_app/features/movies/ui/bloc/genres/genres_event.dart';
 import 'package:movie_app/features/movies/ui/bloc/genres/genres_state.dart';
-import 'package:movie_app/features/movies/ui/bloc/movie/movie_bloc.dart';
-import 'package:movie_app/features/movies/ui/bloc/movie/movie_event.dart';
-import 'package:movie_app/features/movies/ui/bloc/movie/movie_state.dart';
+import 'package:movie_app/features/movies/ui/bloc/posters/posters_bloc.dart';
+import 'package:movie_app/features/movies/ui/bloc/posters/posters_event.dart';
+import 'package:movie_app/features/movies/ui/bloc/posters/posters_state.dart';
 import 'package:movie_app/features/movies/ui/cubit/loading_cubit.dart';
 import 'package:movie_app/features/movies/ui/widgets/choice_genres.dart';
-import 'package:movie_app/features/movies/ui/widgets/movie_widget.dart';
+import 'package:movie_app/features/movies/ui/widgets/poster_widget.dart';
 
-class MoviesPage extends StatefulWidget {
-  const MoviesPage({super.key});
+class PosterPage extends StatefulWidget {
+  const PosterPage({super.key});
 
   @override
-  State<MoviesPage> createState() => _MoviesPageState();
+  State<PosterPage> createState() => _PosterPageState();
 }
 
-class _MoviesPageState extends State<MoviesPage> {
+class _PosterPageState extends State<PosterPage> {
   final ScrollController _scrollCtrl = ScrollController();
 
   @override
   void initState() {
     super.initState();
 
-    BlocProvider.of<MovieBloc>(context).add(GetMoviesEvent());
+    BlocProvider.of<PostersBloc>(context).add(GetPostersEvent());
     BlocProvider.of<GenresBloc>(context).add(GetGenresEvent());
 
+    //create a listener for implement pagination
     _scrollCtrl.addListener(() {
       if (_scrollCtrl.position.pixels == _scrollCtrl.position.maxScrollExtent) {
-        BlocProvider.of<MovieBloc>(context).add(GetMoviesEvent());
+        BlocProvider.of<PostersBloc>(context).add(GetPostersEvent());
         BlocProvider.of<LoadingCubit>(context).showLoading(true);
       } else {
         BlocProvider.of<LoadingCubit>(context).showLoading(true);
@@ -54,7 +55,9 @@ class _MoviesPageState extends State<MoviesPage> {
         SliverToBoxAdapter(
           child: SizedBox(
             height: 60,
-            child: BlocBuilder<GenresBloc, GenresState>(
+            child: BlocConsumer<GenresBloc, GenresState>(
+              listener: (context, state) =>
+                  BlocProvider.of<LoadingCubit>(context).showLoading(false),
               builder: (context, state) {
                 if (state is CompletedGenresState) {
                   return ListView.builder(
@@ -73,9 +76,9 @@ class _MoviesPageState extends State<MoviesPage> {
             ),
           ),
         ),
-        BlocBuilder<MovieBloc, MovieState>(
+        BlocBuilder<PostersBloc, PostersState>(
           builder: (context, state) {
-            if (state is LoadingMovieState) {
+            if (state is LoadingPostersState) {
               return SliverToBoxAdapter(
                 child: Padding(
                   padding: EdgeInsets.only(
@@ -85,7 +88,7 @@ class _MoviesPageState extends State<MoviesPage> {
               );
             }
 
-            if (state is FailMovieState) {
+            if (state is FailPostersState) {
               return SliverToBoxAdapter(
                 child: Padding(
                   padding: EdgeInsets.only(
@@ -97,7 +100,8 @@ class _MoviesPageState extends State<MoviesPage> {
                     backgroundColor: AppColor.tranparent,
                     foregroundColor: AppColor.white,
                     ontap: () {
-                      BlocProvider.of<MovieBloc>(context).add(GetMoviesEvent());
+                      BlocProvider.of<PostersBloc>(context)
+                          .add(GetPostersEvent());
                       BlocProvider.of<GenresBloc>(context)
                           .add(GetGenresEvent());
                     },
@@ -107,7 +111,7 @@ class _MoviesPageState extends State<MoviesPage> {
               );
             }
 
-            if (state is CompleteMovieState) {
+            if (state is CompletePostersState) {
               return SliverGrid(
                 delegate: SliverChildBuilderDelegate(
                   childCount: state.allMovieList.length,

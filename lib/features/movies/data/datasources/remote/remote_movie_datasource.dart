@@ -12,7 +12,7 @@ class RemoteMovieDatasoure implements MovieDatasource {
 
   // fetch all movies
   @override
-  Future<Response> getAllMovie({int page = 1}) async {
+  Future<Response> getPosters({int page = 1}) async {
     try {
       Response response = await _dio.get(
         Api.allMovie,
@@ -45,7 +45,7 @@ class RemoteMovieDatasoure implements MovieDatasource {
 
   //get movies according to genres
   @override
-  Future<Response> getSpecificMovie({required MovieParam param}) async {
+  Future<Response> getSpecificPoster({required MovieParam param}) async {
     try {
       Response response = await _dio.get(
         'api/v1/genres/${param.genresId.seprateId()}/movies',
@@ -53,6 +53,20 @@ class RemoteMovieDatasoure implements MovieDatasource {
           'page': param.page,
         },
       );
+
+      return response;
+    } on DioException catch (e) {
+      e.response == null
+          ? throw FetchDataEx()
+          : throw CheckExceptions.validate(e.response!);
+    }
+  }
+
+  //fetch details of one movie
+  @override
+  Future<Response> getMovie({required int movieId}) async {
+    try {
+      Response response = await _dio.get('${Api.allGenres}/$movieId');
 
       return response;
     } on DioException catch (e) {
