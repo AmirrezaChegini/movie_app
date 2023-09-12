@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:movie_app/features/account/data/datasource/remote/remote_user_datasource.dart';
-import 'package:movie_app/features/account/data/datasource/user_datasource.dart';
-import 'package:movie_app/features/account/data/repositories/user_repository_impl.dart';
-import 'package:movie_app/features/account/domain/repositories/user_repository.dart';
-import 'package:movie_app/features/account/domain/usecases/get_user_usecase.dart';
-import 'package:movie_app/features/account/ui/bloc/user_bloc.dart';
+import 'package:movie_app/features/user/data/datasource/remote/remote_user_datasource.dart';
+import 'package:movie_app/features/user/data/datasource/user_datasource.dart';
+import 'package:movie_app/features/user/data/repositories/user_repository_impl.dart';
+import 'package:movie_app/features/user/domain/repositories/user_repository.dart';
+import 'package:movie_app/features/user/domain/usecases/get_user_usecase.dart';
+import 'package:movie_app/features/user/ui/bloc/user_bloc.dart';
 import 'package:movie_app/features/auth/data/datasources/auth_datasource.dart';
 import 'package:movie_app/features/auth/data/datasources/remote/remote_auth_datasource_impl.dart';
 import 'package:movie_app/features/auth/data/repositories/auth_repositoy_impl.dart';

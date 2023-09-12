@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:movie_app/core/utils/error_handler/app_exceptions.dart';
-import 'package:movie_app/features/account/data/datasource/user_datasource.dart';
-import 'package:movie_app/features/account/data/models/user_model.dart';
-import 'package:movie_app/features/account/domain/entity/user_entity.dart';
-import 'package:movie_app/features/account/domain/repositories/user_repository.dart';
+import 'package:movie_app/features/user/data/datasource/user_datasource.dart';
+import 'package:movie_app/features/user/data/models/user_model.dart';
+import 'package:movie_app/features/user/domain/entity/user_entity.dart';
+import 'package:movie_app/features/user/domain/repositories/user_repository.dart';
 
 class UserRepositoryImpl implements UserRepository {
   final UserDatasource _datasource;

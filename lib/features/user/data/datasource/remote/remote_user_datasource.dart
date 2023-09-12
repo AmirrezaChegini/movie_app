@@ -3,7 +3,7 @@ import 'package:movie_app/core/constants/api.dart';
 import 'package:movie_app/core/utils/error_handler/app_exceptions.dart';
 import 'package:movie_app/core/utils/error_handler/check_exceptions.dart';
 import 'package:movie_app/core/utils/shared_pref.dart';
-import 'package:movie_app/features/account/data/datasource/user_datasource.dart';
+import 'package:movie_app/features/user/data/datasource/user_datasource.dart';
 
 class RemoteUserDatasource implements UserDatasource {
   final Dio _dio;

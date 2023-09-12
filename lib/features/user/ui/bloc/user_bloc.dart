@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_app/features/account/domain/usecases/get_user_usecase.dart';
-import 'package:movie_app/features/account/ui/bloc/user_event.dart';
-import 'package:movie_app/features/account/ui/bloc/user_state.dart';
+import 'package:movie_app/features/user/domain/usecases/get_user_usecase.dart';
+import 'package:movie_app/features/user/ui/bloc/user_event.dart';
+import 'package:movie_app/features/user/ui/bloc/user_state.dart';
 
 class Userbloc extends Bloc<UserEvnet, UserState> {
   final GetUserUsecase _userUsecase;

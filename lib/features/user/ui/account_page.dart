@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/core/constants/colors.dart';
 import 'package:movie_app/core/widgets/loading_widget.dart';
 import 'package:movie_app/core/widgets/textbtn.dart';
-import 'package:movie_app/features/account/ui/bloc/user_bloc.dart';
-import 'package:movie_app/features/account/ui/bloc/user_event.dart';
-import 'package:movie_app/features/account/ui/bloc/user_state.dart';
+import 'package:movie_app/features/user/ui/bloc/user_bloc.dart';
+import 'package:movie_app/features/user/ui/bloc/user_event.dart';
+import 'package:movie_app/features/user/ui/bloc/user_state.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});

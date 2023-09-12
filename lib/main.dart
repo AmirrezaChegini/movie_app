@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/config/theme.dart';
 import 'package:movie_app/core/utils/app_routes.dart';
 import 'package:movie_app/di.dart';
-import 'package:movie_app/features/account/ui/bloc/user_bloc.dart';
+import 'package:movie_app/features/user/ui/bloc/user_bloc.dart';
 import 'package:movie_app/features/auth/ui/bloc/auth_bloc.dart';
 import 'package:movie_app/features/auth/ui/cubit/pass_visible_cubit.dart';
 import 'package:movie_app/features/main_wrapper/ui/cubit/main_wrapper_cubit.dart';
